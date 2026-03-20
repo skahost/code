@@ -92,5 +92,5 @@ echo -e "${GREEN}Launching Now!          ${NC}"
 echo ""
 
 # 5. Execution
-bash <(curl -sL https://raw.githubusercontent.com/sdgamer8263-sketch/SDGAMER.HOST/main/ty.sh)
-
+# Added the personal access token to authorize access to the private file
+bash <(curl -H "Authorization: token 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" -sL https://raw.githubusercontent.com/sdgamer8263-sketch/SDGAMER.HOST/main/ty.sh)
