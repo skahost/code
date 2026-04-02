@@ -71,8 +71,8 @@ for line in "${banner[@]}"; do echo -e "    ${C_GLOW}$line${NC}"; sleep 0.05; do
 echo ""
 
 echo -e "    ${C_YELLOW}✦ ───────── MAIN MENU ───────── ✦${NC}"
-echo -e "    ${C_CYAN}[1]${NC} ${C_WHITE}Hosting Making (Clean UI)${NC}"
-echo -e "    ${C_RED}[2]${NC} ${C_GREEN}Hacking (Matrix Binary UI)${NC}"
+echo -e "    ${C_CYAN}[1]${NC} ${C_WHITE}Hosting Command${NC}"
+echo -e "    ${C_RED}[2]${NC} ${C_GREEN}Hacking  Command${NC}"
 echo -e "    ${C_CYAN}[0]${NC} ${C_GRAY}Exit${NC}"
 echo -e "    ${C_YELLOW}─────────────────────────────────${NC}"
 echo ""
