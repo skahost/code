@@ -12,7 +12,7 @@ C_GRAY="\e[38;5;240m"
 C_GLOW="\e[38;5;87m"
 NC="\e[0m" # No Color
 
-# --- Hide Cursor for Cinematic Feel ---
+# --- Hide Cursor ---
 echo -ne "\e[?25l"
 trap "echo -ne '\e[?25h'; clear; exit" INT TERM EXIT
 
@@ -55,11 +55,10 @@ print_top
 type_in_box " Credits & Acknowledgement"
 type_in_box ""
 type_in_box " Special thanks to: Jishnu, HopingBoyz, and Coding Hub."
-type_in_box " This project is mainly built for learning and educational purposes,"
-type_in_box " inspired by the amazing work of the developer community."
+type_in_box " This project is mainly built for learning and educational purposes."
 print_bottom
 echo ""
-sleep 1.5
+sleep 1.2
 
 clear
 echo ""
@@ -87,7 +86,7 @@ echo ""
 # ==========================================
 echo -e "    ${C_YELLOW}✦ ───────── MAIN MENU ───────── ✦${NC}"
 echo -e "    ${C_CYAN}[1]${NC} ${C_WHITE}Hosting Making (Clean UI)${NC}"
-echo -e "    ${C_RED}[2]${NC} ${C_GREEN}Hacking (Matrix UI)${NC}"
+echo -e "    ${C_RED}[2]${NC} ${C_GREEN}Hacking (Matrix Binary UI)${NC}"
 echo -e "    ${C_CYAN}[0]${NC} ${C_GRAY}Exit${NC}"
 echo -e "    ${C_YELLOW}─────────────────────────────────${NC}"
 echo ""
@@ -98,109 +97,93 @@ read choice
 echo -ne "\e[?25l" 
 echo ""
 
-if [[ "$choice" != "1" && "$choice" != "2" && "$choice" != "0" ]]; then
-    echo -e "    ${C_RED}❌ Invalid option selected. Exiting...${NC}"
-    echo -ne "\e[?25h"
-    exit 1
-fi
-
-if [[ "$choice" == "0" ]]; then
+# Validation
+if [[ "$choice" == "0" ]]; then 
     echo -e "    ${C_GRAY}Exiting normally... Goodbye!${NC}"
-    echo -ne "\e[?25h"
     exit 0
 fi
 
+if [[ "$choice" != "1" && "$choice" != "2" ]]; then
+    echo -e "    ${C_RED}❌ Invalid option selected. Exiting...${NC}"
+    exit 1
+fi
+
 # ==========================================
-# 4. OPTION 1: BEAUTIFUL & ELEGANT UI 
+# 4. OPTION 1: CLEAN UI
 # ==========================================
 if [[ "$choice" == "1" ]]; then
     echo -e "    ${C_CYAN}✨ Preparing your pristine hosting environment...${NC}"
     bar_length=40
-    
-    # 3-Second Clean Loading
     for (( i=1; i<=100; i++ )); do
-        filled_length=$(( (i * bar_length) / 100 ))
-        empty_length=$(( bar_length - filled_length ))
-        filled_bar=$(printf "%${filled_length}s" | tr ' ' '█')
-        empty_bar=$(printf "%${empty_length}s" | tr ' ' '▒')
-        
-        echo -ne "\r    ${C_BLUE}⟳ Loading Workspace: ${C_CYAN}[${C_GLOW}${filled_bar}${C_GRAY}${empty_bar}${C_CYAN}] ${C_WHITE}${i}%%${NC}"
+        filled=$(( (i * bar_length) / 100 ))
+        empty=$(( bar_length - filled ))
+        f_bar=$(printf "%${filled}s" | tr ' ' '█')
+        e_bar=$(printf "%${empty}s" | tr ' ' '▒')
+        echo -ne "\r    ${C_BLUE}⟳ Loading Workspace: ${C_CYAN}[${f_bar}${C_GRAY}${e_bar}${C_CYAN}] ${C_WHITE}${i}%%${NC}"
         sleep 0.03 
     done
     echo -e "\n\n    ${C_GREEN}✔ Environment Optimized and Ready.${NC}"
-    echo -e "    ${C_CYAN}🚀 Initializing Soft Launch... 🚀${NC}"
     
-    # 3-Second Countdown
-    for i in {3..1}; do
+    for i in {3..1}; do 
         echo -ne "\r    ${C_BLUE}Starting up in ${i}...${NC}   "
-        sleep 1 
+        sleep 1
     done
     echo -ne "\r    ${C_GREEN}Launching NOW!      ${NC}\n"
 
 # ==========================================
-# 5. OPTION 2: ADVANCED HACKER UI (NEW)
+# 5. OPTION 2: MATRIX BINARY HACKER UI
 # ==========================================
 elif [[ "$choice" == "2" ]]; then
-    echo -e "    ${C_RED}☠ INITIATING SYSTEM OVERRIDE PROTOCOL ☠${NC}"
+    clear # New Page for Hacker Mode
+    echo -e "${C_RED}☠ INITIATING BINARY DECRYPTION PROTOCOL... ☠${NC}"
     sleep 0.5
     
-    bar_length=40
-    # Hacker Logs Array
-    logs=(
-        "Decrypting RSA-4096 Keys..."
-        "Bypassing Node Firewall..."
-        "Injecting Shellcode to RAM..."
-        "Compromising Root Directory..."
-        "Extracting Admin Credentials..."
-        "Routing via Proxy Chains..."
-        "Disabling Security Daemons..."
-    )
+    # --- Part A: Binary Rain/Storm Effect (1.5 seconds) ---
+    for (( t=1; t<=30; t++ )); do
+        binary_str=""
+        for (( b=1; b<=80; b++ )); do
+            binary_str+=$((RANDOM % 2))
+        done
+        echo -e "${C_GREEN}${binary_str}${NC}"
+        sleep 0.05
+    done
+    
+    echo -e "\n    ${C_RED}[!] SYSTEM VULNERABILITY DETECTED${NC}"
+    echo -e "    ${C_GREEN}[+] BYPASSING KERNEL SECURITY...${NC}\n"
 
-    # 3-Second Dual-Line Hacker Loading
+    # --- Part B: Binary Progress Bar (3 seconds) ---
+    bar_len=40
     for (( i=1; i<=100; i++ )); do
-        filled_length=$(( (i * bar_length) / 100 ))
-        empty_length=$(( bar_length - filled_length ))
-        filled_bar=$(printf "%${filled_length}s" | tr ' ' '█')
-        empty_bar=$(printf "%${empty_length}s" | tr ' ' '-')
+        filled=$(( (i * bar_len) / 100 ))
+        empty=$(( bar_len - filled ))
+        f_bar=$(printf "%${filled}s" | tr ' ' '1')
+        e_bar=$(printf "%${empty}s" | tr ' ' '0')
         
-        # Random Fake Hex Code
-        random_hash=$(cat /dev/urandom | tr -dc 'a-f0-9' | head -c 12)
-        # Random Fake Log
-        log_idx=$(( RANDOM % ${#logs[@]} ))
-        current_log="${logs[$log_idx]}"
-
-        # Print Top Line (Fake Action Log) - \e[2K clears the line
-        echo -e "\e[2K\r    ${C_GREEN}[*] ${current_log} [0x${random_hash}]${NC}"
+        # Random Binary Hex Address
+        rand_bin=$(cat /dev/urandom | tr -dc '01' | head -c 8)
         
-        # Print Bottom Line (Aggressive Progress Bar)
-        echo -ne "\e[2K\r    ${C_RED}BREACH: ${C_GRAY}[${C_GREEN}${filled_bar}${C_GRAY}${empty_bar}${C_GRAY}] ${C_GREEN}${i}%%${NC}"
-        
+        echo -ne "\r    ${C_WHITE}VAL_${rand_bin} ${C_RED}BREACH: ${C_GRAY}[${C_GREEN}${f_bar}${C_GRAY}${e_bar}${C_GRAY}] ${C_GREEN}${i}%%${NC}"
         sleep 0.03 
-        
-        # Move cursor up 1 line to overwrite (except on the last loop)
-        if [ $i -lt 100 ]; then
-            echo -ne "\e[1A"
-        fi
     done
     
-    echo -e "\n\n    ${C_RED}[+] ROOT ACCESS GRANTED. SYSTEM COMPROMISED.${NC}"
-    echo -e "    ${C_YELLOW}⚠ Executing Malicious Payload ⚠${NC}"
+    echo -e "\n\n    ${C_RED}[✔] ROOT ACCESS GRANTED. PAYLOAD READY.${NC}"
     
-    # 3-Second Hacker Countdown (Flashing Effect)
+    # --- Part C: Binary Countdown (3 seconds) ---
     for i in {3..1}; do
-        echo -ne "\r    ${C_RED}>>> EXECUTING IN ${i} <<<${NC}   "
+        # Flashing binary numbers behind the countdown
+        echo -ne "\r    ${C_RED}EXE_CODE_$(($RANDOM%100)) >> LAUNCHING IN: ${i} << ${NC}   "
         sleep 0.5
-        echo -ne "\r    ${C_WHITE}>>> EXECUTING IN ${i} <<<${NC}   "
+        echo -ne "\r    ${C_WHITE}EXE_CODE_$(($RANDOM%100)) >> LAUNCHING IN: ${i} << ${NC}   "
         sleep 0.5
     done
-    echo -ne "\r    ${C_GREEN}▓▓▓ SYSTEM TAKEOVER SUCCESSFUL ▓▓▓      ${NC}\n"
+    echo -e "\r    ${C_GREEN}>>> BINARY OVERRIDE COMPLETE <<<      ${NC}\n"
 fi
 
 sleep 0.5
 echo ""
 
 # ==========================================
-# 6. FINAL EXECUTION (Common)
+# 6. FINAL EXECUTION
 # ==========================================
 trap - INT TERM EXIT 
 echo -ne "\e[?25h" 
