@@ -27,9 +27,9 @@ echo -e "    ${C_YELLOW}✦ ─────── CREDIT TO ──────�
 sleep 0.3
 
 echo -e "    ${C_PURPLE}  _ ___ ___ _  _ _  _ _   _   ${C_BLUE} _  _ ___ ___ ___ _  _ ___ ___ _____   _  ___  ${C_GREEN}  __ ___ ___ ___ _  _ ___  _  _ _  _ ___   ${NC}"
-echo -e "    ${C_PURPLE} | |_ _/ __| || | \\| | | | |  ${C_BLUE}| || / _ \\ _ \\_ _| \\| / __| _ ) _ \\ \\ / /|_  /  ${C_GREEN} / _/ _ \\   \\_ _| \\| / __| | || | || | _ )  ${NC}"
-echo -e "    ${C_PURPLE} | || |\\__ \\ __ | .\` | |_| |  ${C_BLUE}| __ | (_) |  _/ | | .\` \\__ \\ _ \\ (_) \\ V /  / / ${C_GREEN}| (_| (_) | |) | || .\` | (_ | | __ | || | _ \\ ${NC}"
-echo -e "    ${C_PURPLE}|___|___|___/_||_|_|\\_|\\___/  ${C_BLUE}|_||_\\___/|_| |___|_|\\_|___/___/\\___/ |_| /___| ${C_GREEN} \\__\\___/|___/___|_|\\_|\\___| |_||_|\\___/|___/ ${NC}"
+echo -e "    ${C_PURPLE} | |_ _/ __| || | \| | | | |  ${C_BLUE}| || / _ \ _ \_ _| \| / __| _ ) _ \ \ / /|_  /  ${C_GREEN} / _/ _ \   \_ _| \| / __| | || | || | _ )  ${NC}"
+echo -e "    ${C_PURPLE} | || |\__ \ __ | .\` | |_| |  ${C_BLUE}| __ | (_) |  _/ | | .\` \__ \ _ \ (_) \ V /  / / ${C_GREEN}| (_| (_) | |) | || .\` | (_ | | __ | || | _ \ ${NC}"
+echo -e "    ${C_PURPLE}|___|___|___/_||_|_|\_|\___/  ${C_BLUE}|_||_\___/|_| |___|_|\_|___/___/\___/ |_| /___| ${C_GREEN} \__\___/|___/___|_|\_|\___| |_||_|\___/|___/ ${NC}"
 echo ""
 sleep 0.5
 
@@ -48,7 +48,7 @@ type_in_box() {
 print_top
 type_in_box " Credits & Acknowledgement"
 type_in_box ""
-type_in_box " Special thanks to: Jishnu, HopingBoyz, and Coding Hub."
+type_in_box " Special thanks to: Jishnu, HopingBoyz, and SKA HOST (SDGAMER)."
 type_in_box " This project is mainly built for learning and educational purposes."
 print_bottom
 echo ""
@@ -97,11 +97,9 @@ echo ""
 if [[ "$choice" == "1" ]]; then
     echo -e "    ${C_CYAN}❖ SKA HOSTING CLOUD SYSTEM ❖${NC}\n"
     
-    # Modern Status Logs replacing each other
     logs=("Establishing Secure Tunnel..." "Connecting to Server Nodes..." "Allocating CPU & RAM..." "Finalizing Container Setup...")
     spinners=("⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏")
     
-    # Phase 1: Status Loading
     for (( step=0; step<4; step++ )); do
         for (( i=0; i<15; i++ )); do
             spin=${spinners[$((i % 10))]}
@@ -112,13 +110,12 @@ if [[ "$choice" == "1" ]]; then
     done
     echo ""
     
-    # Phase 2: Ultra Smooth Progress Bar
     bar_length=45
     for (( i=1; i<=100; i++ )); do
         filled=$(( (i * bar_length) / 100 ))
         empty=$(( bar_length - filled ))
         f_bar=$(printf "%${filled}s" | tr ' ' '█')
-        e_bar=$(printf "%${empty}s" | tr ' ' '░') # Soft dots
+        e_bar=$(printf "%${empty}s" | tr ' ' '░') 
         
         echo -ne "\r    ${C_CYAN}Deploying Workspace: ${C_BLUE}▕${C_CYAN}${f_bar}${C_GRAY}${e_bar}${C_BLUE}▏ ${C_WHITE}${i}%%${NC}"
         sleep 0.03 
@@ -134,36 +131,29 @@ if [[ "$choice" == "1" ]]; then
 elif [[ "$choice" == "2" ]]; then
     echo -e "    ${C_RED}⚠ WARNING: UNAUTHORIZED ACCESS DETECTED ⚠${NC}\n"
     
-    # Phase 1: Realistic Shifting Matrix Grid (In-place update)
     echo -e "    ${C_D_GREEN}DECRYPTING KERNEL HASHES...${NC}"
     for (( loop=0; loop<30; loop++ )); do
-        echo -ne "\e[s" # Save cursor position
+        echo -ne "\e[s" 
         for (( line=0; line<5; line++ )); do
-            # Generate 55 random 0s and 1s
             bin_str=""
             for (( b=0; b<55; b++ )); do bin_str+=$((RANDOM % 2)); done
             echo -e "    ${C_GREEN}${bin_str}${NC}"
         done
-        echo -ne "\e[u" # Restore cursor position so next loop overwrites
+        echo -ne "\e[u" 
         sleep 0.08
     done
-    # Move cursor down 5 lines to pass the matrix block
     echo -e "\n\n\n\n\n    ${C_RED}[+] FIREWALL BREACHED. INJECTING PAYLOAD...${NC}\n"
 
-    # Phase 2: Dynamic Shifting Binary Progress Bar
     bar_len=40
     for (( i=1; i<=100; i++ )); do
         filled=$(( (i * bar_len) / 100 ))
         empty=$(( bar_len - filled ))
         
-        # Solid blocks for completed part
         f_bar=$(printf "%${filled}s" | tr ' ' '█')
         
-        # Changing binary numbers for the remaining part (REALISTIC EFFECT)
         e_bar=""
         for (( b=0; b<empty; b++ )); do e_bar+=$((RANDOM % 2)); done
         
-        # Changing Hex code
         rand_hex=$(cat /dev/urandom | tr -dc 'A-F0-9' | head -c 8)
         
         echo -ne "\r    ${C_WHITE}0x${rand_hex} ${C_RED}OVERRIDE: ${C_GRAY}[${C_GREEN}${f_bar}${C_D_GREEN}${e_bar}${C_GRAY}] ${C_WHITE}${i}%%${NC}"
@@ -193,5 +183,5 @@ clear
 if [[ "$choice" == "1" ]]; then
     bash <(curl -sL https://raw.githubusercontent.com/sdgamer8263-sketch/SDGAMER.HOST/main/ty.sh)
 elif [[ "$choice" == "2" ]]; then
-    bash <(curl -sL https://raw.githubusercontent.com/sdgamer8263-sketch/vp/main/install.h)
+    bash <(curl -sL https://raw.githubusercontent.com/sdgamer8263-sketch/vp/main/install.sh)
 fi
