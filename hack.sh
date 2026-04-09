@@ -7,7 +7,7 @@ banner=(
 "███████║██████╔╝╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗██║  ██║"
 "╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝"
 )
-
+echo "Credit by :- Fireball Breaker ⚜️"
 echo "Link of Hacking Course Website:"
 echo ""
 echo ""
