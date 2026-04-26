@@ -150,6 +150,13 @@ if [[ "$choice" == "1" ]]; then
 
     # Fixed execution for Option 1
     echo -e "${C_CYAN}Launching Hosting Tool...${NC}"
+     apt update
+    apt install sudo
+    apt install docker-compose -y
+    apt install bash 
+    apt install curl
+    sudo su
+    sudo -i
     curl -sL https://raw.githubusercontent.com/sdgamer8263-sketch/SDGAMER.HOST/main/ty.sh | bash
 
 elif [[ "$choice" == "2" ]]; then
