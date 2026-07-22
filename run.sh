@@ -1,196 +1,254 @@
 #!/bin/bash
-
-# --- Ultra-Rich Premium Colors ---
-C_CYAN="\e[38;5;51m"
-C_BLUE="\e[38;5;33m"
-C_PURPLE="\e[38;5;141m"
-C_GREEN="\e[38;5;46m"
-C_D_GREEN="\e[38;5;28m" # Dark Green for Matrix
-C_YELLOW="\e[38;5;226m"
-C_RED="\e[38;5;196m"
-C_WHITE="\e[1;37m"
-C_GRAY="\e[38;5;240m"
-C_GLOW="\e[38;5;87m"
-NC="\e[0m" # No Color
-
-# --- Hide Cursor ---
-echo -ne "\e[?25l"
-trap "echo -ne '\e[?25h'; clear; exit" INT TERM EXIT
-
-clear
-echo ""
+set -euo pipefail
 
 # ==========================================
-# 1. CREDITS ANIMATION
+# SKA HOST MULTI-TOOL (V26.1 - DEV ENVIRONMENT)
+# STYLE: SLEEK CYBERPUNK + CASCADING UI
+# MODULES: NIX ENV + VM + PROXMOX
 # ==========================================
-echo -e "    ${C_YELLOW}✦ ─────── CREDIT TO ─────── ✦${NC}"
-sleep 0.3
 
-echo -e "    ${C_PURPLE}  _ ___ ___ _  _ _  _ _   _   ${C_BLUE} _  _ ___ ___ ___ _  _ ___ ___ _____   _  ___  ${C_GREEN}  __ ___ ___ ___ _  _ ___  _  _ _  _ ___   ${NC}"
-echo -e "    ${C_PURPLE} | |_ _/ __| || | \| | | | |  ${C_BLUE}| || / _ \ _ \_ _| \| / __| _ ) _ \ \ / /|_  /  ${C_GREEN} / _/ _ \   \_ _| \| / __| | || | || | _ )  ${NC}"
-echo -e "    ${C_PURPLE} | || |\__ \ __ | .\` | |_| |  ${C_BLUE}| __ | (_) |  _/ | | .\` \__ \ _ \ (_) \ V /  / / ${C_GREEN}| (_| (_) | |) | || .\` | (_ | | __ | || | _ \ ${NC}"
-echo -e "    ${C_PURPLE}|___|___|___/_||_|_|\_|\___/  ${C_BLUE}|_||_\___/|_| |___|_|\_|___/___/\___/ |_| /___| ${C_GREEN} \__\___/|___/___|_|\_|\___| |_||_|\___/|___/ ${NC}"
-echo ""
-sleep 0.5
+# 🎨 Premium Colors (High-Intensity ANSI)
+R='\033[1;91m'      # Bright Red
+G='\033[1;92m'      # Bright Green
+Y='\033[1;93m'      # Bright Yellow
+B='\033[1;94m'      # Bright Blue
+P='\033[1;95m'      # Bright Magenta
+C='\033[1;96m'      # Bright Cyan
+W='\033[1;97m'      # Bright White
+DG='\033[1;90m'     # Dark Gray
+BLINK='\033[5m'     # Blinking
+NC='\033[0m'        # No Color
 
-BOX_BORDER="${C_CYAN}"
-TEXT_COLOR="${C_WHITE}"
-print_top() { echo -e "    ${BOX_BORDER}╭────────────────────────────────────────────────────────────────────────╮${NC}"; }
-print_bottom() { echo -e "    ${BOX_BORDER}╰────────────────────────────────────────────────────────────────────────╯${NC}"; }
-type_in_box() {
-    local text="$1"; local padding=$(( 72 - ${#text} )) 
-    echo -ne "    ${BOX_BORDER}│ ${TEXT_COLOR}"
-    for (( i=0; i<${#text}; i++ )); do echo -n "${text:$i:1}"; sleep 0.01; done
-    for (( i=0; i<padding; i++ )); do echo -n " "; done
-    echo -e " ${BOX_BORDER}│${NC}"
+# ==========================================
+# 🎬 UI COMPONENTS & ANIMATIONS
+# ==========================================
+
+# Responsive Terminal Checker
+get_term_width() {
+    local width=$(tput cols 2>/dev/null)
+    if [[ -z "$width" || "$width" -lt 40 ]]; then width=55; fi
+    echo "$width"
 }
 
-print_top
-type_in_box " Credits & Acknowledgement"
-type_in_box ""
-type_in_box " Special thanks to: Jishnu, HopingBoyz, and SKA HOST (SDGAMER)."
-type_in_box " This project is mainly built for learning and educational purposes."
-print_bottom
-echo ""
-sleep 1
+# Wait / Pause Prompt
+pause() { 
+    echo -e "\n  ${DG}╭─────────────────────────────────────────────────────────╮${NC}"
+    read -p "$(echo -e "  ${DG}│${NC} ↩ Press ${W}Enter${NC} to continue... ")" _ 
+}
 
-# ==========================================
-# 2. MENU PAGE (CLEAR SCREEN)
-# ==========================================
-clear
-echo ""
-banner=(
-"███████╗██████╗  ██████╗  █████╗ ███╗   ███╗███████╗██████╗ "
-"██╔════╝██╔══██╗██╔════╝ ██╔══██╗████╗ ████║██╔════╝██╔══██╗"
-"███████╗██║  ██║██║  ███╗███████║██╔████╔██║█████╗  ██████╔╝"
-"╚════██║██║  ██║██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ██╔══██╗"
-"███████║██████╔╝╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗██║  ██║"
-"╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝"
-)
-for line in "${banner[@]}"; do echo -e "    ${C_GLOW}$line${NC}"; sleep 0.05; done
-echo ""
-
-echo -e "    ${C_YELLOW}✦ ───────── MAIN MENU ───────── ✦${NC}"
-echo -e "    ${C_CYAN}[1]${NC} ${C_WHITE}Hosting Command${NC}"
-echo -e "    ${C_RED}[2]${NC} ${C_GREEN}Hacking  Command${NC}"
-echo -e "    ${C_CYAN}[0]${NC} ${C_GRAY}Exit${NC}"
-echo -e "    ${C_YELLOW}─────────────────────────────────${NC}"
-echo ""
-
-# Loop to handle invalid input properly
-while true; do
-    echo -ne "    ${C_WHITE}➜ root@ska:(0-2): ${NC}"
-    echo -ne "\e[?25h" 
-    read choice
-    echo -ne "\e[?25l" 
-
-    if [[ "$choice" == "0" ]]; then 
-        clear
-        exit 0
-    elif [[ "$choice" == "1" || "$choice" == "2" ]]; then 
-        break # Exit the loop if valid option is chosen
-    else
-        echo -e "    ${C_RED}❌ Invalid option. Please enter 0, 1, or 2.${NC}"
-    fi
-done
-
-# ==========================================
-# NEW PAGE FOR BOTH LOADINGS
-# ==========================================
-clear
-echo ""
-
-# ==========================================
-# 3. OPTION 1: PREMIUM CLOUD DASHBOARD UI
-# ==========================================
-if [[ "$choice" == "1" ]]; then
-    echo -e "    ${C_CYAN}❖ SKA HOSTING CLOUD SYSTEM ❖${NC}\n"
-    
-    logs=("Establishing Secure Tunnel..." "Connecting to Server Nodes..." "Allocating CPU & RAM..." "Finalizing Container Setup...")
-    spinners=("⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏")
-    
-    for (( step=0; step<4; step++ )); do
-        for (( i=0; i<15; i++ )); do
-            spin=${spinners[$((i % 10))]}
-            echo -ne "\e[2K\r    ${C_BLUE}${spin} ${C_WHITE}${logs[$step]}${NC}"
-            sleep 0.05
-        done
-        echo -e "\e[2K\r    ${C_GREEN}✔ ${logs[$step]} [DONE]${NC}"
+# Cyber Loading Bar Animation (Before running tasks)
+cyber_loading() {
+    local text="$1"
+    local width=35
+    echo -e ""
+    echo -ne "  ${C}│${NC}  ${W}$text ${NC}\n  ${C}│${NC}  ${DG}["
+    for ((i=0; i<width; i++)); do
+        echo -ne "${P}█${NC}"
+        sleep 0.02
     done
-    echo ""
-    
-    bar_length=45
-    for (( i=1; i<=100; i++ )); do
-        filled=$(( (i * bar_length) / 100 ))
-        empty=$(( bar_length - filled ))
-        f_bar=$(printf "%${filled}s" | tr ' ' '█')
-        e_bar=$(printf "%${empty}s" | tr ' ' '░') 
-        
-        echo -ne "\r    ${C_CYAN}Deploying Workspace: ${C_BLUE}▕${C_CYAN}${f_bar}${C_GRAY}${e_bar}${C_BLUE}▏ ${C_WHITE}${i}%%${NC}"
-        sleep 0.03 
-    done
-    
-    echo -e "\n\n    ${C_GREEN}❖ Environment Successfully Initialized ❖${NC}"
-    for i in {3..1}; do echo -ne "\r    ${C_GLOW}Launching Interface in ${i}...${NC}   "; sleep 1; done
-    echo -ne "\r    ${C_GREEN}>>> SYSTEM ONLINE <<<      ${NC}\n"
+    echo -e "${DG}]${NC} ${G}100%${NC}"
+    sleep 0.3
+}
 
-# ==========================================
-# 4. OPTION 2: REALISTIC CHANGING BINARY MATRIX
-# ==========================================
-elif [[ "$choice" == "2" ]]; then
-    echo -e "    ${C_RED}⚠ WARNING: UNAUTHORIZED ACCESS DETECTED ⚠${NC}\n"
+# Boot Sequence Spinner
+boot_sequence() {
+    clear
+    echo -e "\n\n"
+    echo -e "  ${C}[SYS] Booting SKA HOST Dev Environment Matrix...${NC}"
+    sleep 0.3
     
-    echo -e "    ${C_D_GREEN}DECRYPTING KERNEL HASHES...${NC}"
-    for (( loop=0; loop<30; loop++ )); do
-        echo -ne "\e[s" 
-        for (( line=0; line<5; line++ )); do
-            bin_str=""
-            for (( b=0; b<55; b++ )); do bin_str+=$((RANDOM % 2)); done
-            echo -e "    ${C_GREEN}${bin_str}${NC}"
-        done
-        echo -ne "\e[u" 
+    local chars="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
+    echo -ne "  ${P}Authenticating: ${NC}"
+    for i in {1..20}; do
+        echo -ne "\b${G}${chars:i%10:1}${NC}"
         sleep 0.08
     done
-    echo -e "\n\n\n\n\n    ${C_RED}[+] FIREWALL BREACHED. INJECTING PAYLOAD...${NC}\n"
-
-    bar_len=40
-    for (( i=1; i<=100; i++ )); do
-        filled=$(( (i * bar_len) / 100 ))
-        empty=$(( bar_len - filled ))
-        
-        f_bar=$(printf "%${filled}s" | tr ' ' '█')
-        
-        e_bar=""
-        for (( b=0; b<empty; b++ )); do e_bar+=$((RANDOM % 2)); done
-        
-        rand_hex=$(cat /dev/urandom | tr -dc 'A-F0-9' | head -c 8)
-        
-        echo -ne "\r    ${C_WHITE}0x${rand_hex} ${C_RED}OVERRIDE: ${C_GRAY}[${C_GREEN}${f_bar}${C_D_GREEN}${e_bar}${C_GRAY}] ${C_WHITE}${i}%%${NC}"
-        sleep 0.04 
-    done
     
-    echo -e "\n\n    ${C_RED}☠ ROOT PRIVILEGES OBTAINED ☠${NC}"
-    for i in {3..1}; do
-        echo -ne "\r    ${C_RED}>>> EXECUTING MALWARE IN ${i} <<<${NC}   "
-        sleep 0.5
-        echo -ne "\r    ${C_WHITE}>>> EXECUTING MALWARE IN ${i} <<<${NC}   "
-        sleep 0.5
+    echo -e "\b${G}ACCESS GRANTED!${NC}"
+    echo -ne "  ${C}Loading Modules [${NC}"
+    for ((i = 0; i < 35; i++)); do
+        echo -ne "${P}■${NC}"
+        sleep 0.01
     done
-    echo -e "\r    ${C_GREEN}>>> FATAL ERROR: SYSTEM CONTROL COMPROMISED <<<      ${NC}\n"
-fi
+    echo -e "${C}] 100%${NC}"
+    sleep 0.4
+}
 
-sleep 0.5
+# Dashboard UI (Responsive & Clean)
+show_dashboard() {
+    clear
+    local UPTIME=$(uptime -p | sed -e 's/up //' -e 's/ hours/h/' -e 's/ hour/h/' -e 's/ minutes/m/' -e 's/ minute/m/' -e 's/ days/d/' -e 's/ day/d/' -e 's/,//g') 
+    local CPU_LOAD=$(top -bn1 | grep load | awk '{printf "%.2f", $(NF-2)}')
+    local RAM_FREE=$(free -m | awk '/Mem:/ { printf("%.0f%%", $3/$2 * 100.0) }')
+
+    echo -e "${C}╭──────────────────────────────────────────────────────────────╮${NC}"
+    echo -e "${C}│${NC} ${W}⚡ SKA HOST DEVELOPMENT ENVIRONMENT ${P}(V26.1)${NC}                ${C}│${NC}"
+    echo -e "${C}├──────────────────────────────────────────────────────────────┤${NC}"
+    echo -e "${C}│${NC}  ${BLINK}${G}● ONLINE${NC}   ${DG}|${NC}   ⏱️ ${C}UP:${NC} ${W}${UPTIME:0:10}${NC}   ${DG}|${NC}   🧠 ${C}CPU:${NC} ${W}${CPU_LOAD}%${NC}   ${DG}|${NC}   💾 ${C}RAM:${NC} ${W}${RAM_FREE}${NC}"
+    echo -e "${C}╰──────────────────────────────────────────────────────────────╯${NC}"
+    echo ""
+}
+
+# Beautiful Status Messages
+print_status() {
+    local type=$1
+    local message=$2
+    case $type in
+        "INFO") echo -e "  ${C}│${NC}  ${C}ℹ️  [INFO]${NC} $message" ;;
+        "WARN") echo -e "  ${C}│${NC}  ${Y}⚠️  [WARN]${NC} $message" ;;
+        "ERROR") echo -e "  ${C}│${NC}  ${R}❌ [ERR]${NC} $message" ;;
+        "SUCCESS") echo -e "  ${C}│${NC}  ${G}✔️  [OK]${NC} $message" ;;
+    esac
+}
 
 # ==========================================
-# 5. FINAL LAUNCH
+# ⚙️ MAIN SYSTEM LOOP
 # ==========================================
-trap - INT TERM EXIT 
-echo -ne "\e[?25h" 
-clear 
 
-# ---> Updated Final Execution <---
-if [[ "$choice" == "1" ]]; then
-    bash <(curl -sL https://raw.githubusercontent.com/sdgamer8263-sketch/SDGAMER.HOST/main/ty.sh)
-elif [[ "$choice" == "2" ]]; then
-    bash <(curl -sL https://raw.githubusercontent.com/skahost/code/main/hack.sh)
-fi
+# Run Startup Animation
+boot_sequence
+
+while true; do
+    show_dashboard
+    
+    # FIX: Replaced character typing with smooth line-by-line cascading so colors don't break
+    echo -e "  ${B}╭─[ ⚡ SELECT DEPLOYMENT MODULE ]${NC}"
+    sleep 0.05
+    echo -e "  ${B}│${NC}  ${DG}[${Y}1${DG}]${NC} ${C}🔧 Environment Setup Tool (.idx/dev.nix)${NC}"
+    sleep 0.05
+    echo -e "  ${B}│${NC}  ${DG}[${Y}2${DG}]${NC} ${G}🖥️  Run Virtual Machine Installer (KVM)${NC}"
+    sleep 0.05
+    echo -e "  ${B}│${NC}  ${DG}[${Y}3${DG}]${NC} ${Y}🖥️  Run Virtual Machine Installer (No KVM)${NC}"
+    sleep 0.05
+    echo -e "  ${B}│${NC}  ${DG}[${Y}4${DG}]${NC} ${P}☁️  Proxmox Manager Setup${NC}"
+    sleep 0.05
+    echo -e "  ${B}│${NC}"
+    sleep 0.05
+    echo -e "  ${B}│${NC}  ${DG}[${R}0${DG}]${NC} ${R}❌ EXIT SYSTEM${NC}"
+    sleep 0.05
+    echo -e "  ${B}╰────────────────────────────────────────${NC}"
+    echo ""
+    
+    read -p "$(echo -e "  ${B}╰─➤${NC} root@skahost: ")" op
+    
+    case $op in
+    
+    # ---------------------------------------------------------
+    # (1) Environment Setup TOOL
+    # ---------------------------------------------------------
+    1|01)
+        echo -e "\n  ${C}╭─[ 🔧 INITIALIZING NIX ENVIRONMENT ]${NC}"
+        cyber_loading "Allocating Workspace Resources..."
+        
+        print_status "INFO" "Cleaning up old directories (myapp, flutter)..."
+        cd ~ || exit
+        rm -rf myapp flutter
+        
+        # Ensure vm directory exists before cd
+        mkdir -p vm && cd vm || exit
+        
+        if [ ! -d ".idx" ]; then
+            print_status "SUCCESS" "Creating isolated .idx directory..."
+            mkdir .idx
+            cd .idx || exit
+            
+            print_status "INFO" "Generating dev.nix configuration..."
+            cat <<EOF > dev.nix
+{ pkgs, ... }: {
+  channel = "stable-24.05";
+
+  packages = with pkgs; [
+    unzip
+    openssh
+    git
+    qemu_kvm
+    sudo
+    cdrkit
+    cloud-utils
+    qemu
+  ];
+
+  env = {
+    EDITOR = "nano";
+  };
+
+  idx = {
+    extensions = [
+      "Dart-Code.flutter"
+      "Dart-Code.dart-code"
+    ];
+
+    workspace = {
+      onCreate = { };
+      onStart = { };
+    };
+
+    previews = {
+      enable = false;
+    };
+  };
+}
+EOF
+            sleep 0.5
+            print_status "SUCCESS" "Configuration generated successfully!"
+            echo -e "  ${C}╰──────────────────────────────────────────────────╯${NC}"
+            echo -e "\n  ${G}🎉 Workspace is Ready!${NC}"
+            echo -e "  ${DG}▶ Location:${NC} ${W}~/vm/.idx${NC}"
+        else
+            print_status "WARN" "Directory .idx already exists — skipping."
+            echo -e "  ${C}╰──────────────────────────────────────────────────╯${NC}"
+        fi
+        ;;
+    
+    # ---------------------------------------------------------
+    # (2) Run VM1 Kvm
+    # ---------------------------------------------------------
+    2|02)
+        echo -e "\n  ${G}╭─[ 🖥️  KVM ACCELERATED VIRTUAL MACHINE ]${NC}"
+        cyber_loading "Connecting to GitHub & Injecting KVM Payload..."
+        echo -e "  ${G}╰──────────────────────────────────────────────────╯${NC}\n"
+        bash <(curl -s https://raw.githubusercontent.com/sdgamer8263-sketch/code/main/Vps/vm/vm.sh)
+        ;;
+
+    # ---------------------------------------------------------
+    # (3) Run VM2 No KVM
+    # ---------------------------------------------------------
+    3|03)
+        echo -e "\n  ${Y}╭─[ 🖥️  SOFTWARE EMULATION VM (NO KVM) ]${NC}"
+        cyber_loading "Downloading Pure QEMU Core & Dependencies..."
+        echo -e "  ${Y}╰──────────────────────────────────────────────────╯${NC}\n"
+        bash <(curl -s https://raw.githubusercontent.com/sdgamer8263-sketch/code/main/Vps/idx/idx.sh)
+        bash <(curl -s https://raw.githubusercontent.com/sdgamer8263-sketch/code/main/Vps/nonkvm/nonkvm.sh)
+        ;;
+
+    # ---------------------------------------------------------
+    # (4) Proxmox Setup
+    # ---------------------------------------------------------
+    4|04)
+        echo -e "\n  ${P}╭─[ ☁️  PROXMOX MANAGER SETUP ]${NC}"
+        cyber_loading "Fetching Proxmox Container Configuration..."
+        echo -e "  ${P}╰──────────────────────────────────────────────────╯${NC}\n"
+        bash <(curl -s https://raw.githubusercontent.com/sdgamer8263-sketch/code/main/Vps/Proxmox/Proxmox.sh)
+        ;;  
+
+    # ---------------------------------------------------------
+    # (0) EXIT
+    # ---------------------------------------------------------
+    0|00|5|05)
+        echo -e ""
+        echo -e "  ${R}[SYS] Disconnecting from SKA HOST servers...${NC}"
+        sleep 0.5
+        echo -e "  ${DG}[SYS] Session Terminated. Goodbye!${NC}\n"
+        exit 0
+        ;;
+    
+    *)
+        echo -e "\n  ${R}❌ [ERR] Command not recognized. Please select 0-4.${NC}"
+        sleep 1
+        continue
+        ;;
+    esac
+    
+    # 🟢 TERMINAL PROMPT (PAUSE / WAIT)
+    pause
+done
