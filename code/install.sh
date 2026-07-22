@@ -410,7 +410,7 @@ while true; do
         6|06) bash <(curl -sL https://raw.githubusercontent.com/skahost/code/main/code/ee/run.sh) ;;
         7|07) port_forward_menu; continue ;;
         8|08) python3 <(curl -sL https://raw.githubusercontent.com/JishnuTheGamer/24-7/refs/heads/main/24) ;;
-        9|09) bash <(curl -sL https://raw.githubusercontent.com/skahost/code/main/code/Edit tool/System.sh) ;;
+        9|09) bash <(curl -sL https://raw.githubusercontent.com/skahost/code/main/code/Edit_tool/System.sh) ;;
         0|00) 
             echo -e ""
             type_effect "${R}  [SYS] Terminating processes...${NC}" 0.03
