@@ -3,11 +3,11 @@ set -euo pipefail
 
 # ==========================================
 # SKA HOST MULTI-TOOL (V26.1 - DEV ENVIRONMENT)
-# STYLE: SLEEK CYBERPUNK + ANIMATED UI
+# STYLE: SLEEK CYBERPUNK + INSTANT UI
 # MODULES: NIX ENV + VM + PROXMOX
 # ==========================================
 
-# 🎨 Premium Colors (High-Intensity ANSI)
+# 🎨 Premium Colors (Using \033 for 100% compatibility)
 R='\033[1;91m'      # Bright Red
 G='\033[1;92m'      # Bright Green
 Y='\033[1;93m'      # Bright Yellow
@@ -20,31 +20,13 @@ BLINK='\033[5m'     # Blinking
 NC='\033[0m'        # No Color
 
 # ==========================================
-# 🎬 UI COMPONENTS & ANIMATIONS
+# 🎬 UI COMPONENTS
 # ==========================================
-
-# Responsive Terminal Checker
-get_term_width() {
-    local width=$(tput cols 2>/dev/null)
-    if [[ -z "$width" || "$width" -lt 40 ]]; then width=55; fi
-    echo "$width"
-}
 
 # Wait / Pause Prompt
 pause() { 
     echo -e "\n  ${DG}╭─────────────────────────────────────────────────────────╮${NC}"
     read -p "$(echo -e "  ${DG}│${NC} ↩ Press ${W}Enter${NC} to continue... ")" _ 
-}
-
-# Smooth Typing Effect
-type_effect() {
-    local text="$1"
-    local speed="$2"
-    for (( i=0; i<${#text}; i++ )); do
-        echo -en "${text:$i:1}"
-        sleep "$speed"
-    done
-    echo ""
 }
 
 # Cyber Loading Bar Animation (Before running tasks)
@@ -65,7 +47,8 @@ cyber_loading() {
 boot_sequence() {
     clear
     echo -e "\n\n"
-    type_effect "  ${C}[SYS] Booting SKA HOST Dev Environment Matrix...${NC}" 0.02
+    echo -e "  ${C}[SYS] Booting SKA HOST Dev Environment Matrix...${NC}"
+    sleep 0.3
     
     local chars="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
     echo -ne "  ${P}Authenticating: ${NC}"
@@ -121,18 +104,18 @@ boot_sequence
 while true; do
     show_dashboard
     
-    # Animated Menu Rendering
+    # INSTANT PRINTING MENU - No animations, colors will render perfectly
     echo -e "  ${B}╭─[ ⚡ SELECT DEPLOYMENT MODULE ]${NC}"
-    type_effect "  ${B}│${NC}  ${DG}[${Y}1${DG}]${NC} ${C}🔧 Environment Setup Tool (.idx/dev.nix)${NC}" 0.01
-    type_effect "  ${B}│${NC}  ${DG}[${Y}2${DG}]${NC} ${G}🖥️  Run Virtual Machine Installer (KVM)${NC}" 0.01
-    type_effect "  ${B}│${NC}  ${DG}[${Y}3${DG}]${NC} ${Y}🖥️  Run Virtual Machine Installer (No KVM)${NC}" 0.01
-    type_effect "  ${B}│${NC}  ${DG}[${Y}4${DG}]${NC} ${P}☁️  Proxmox Manager Setup${NC}" 0.01
+    echo -e "  ${B}│${NC}  ${DG}[${Y}1${DG}]${NC} ${C}🔧 Environment Setup Tool (.idx/dev.nix)${NC}"
+    echo -e "  ${B}│${NC}  ${DG}[${Y}2${DG}]${NC} ${G}🖥️  Run Virtual Machine Installer (KVM)${NC}"
+    echo -e "  ${B}│${NC}  ${DG}[${Y}3${DG}]${NC} ${Y}🖥️  Run Virtual Machine Installer (No KVM)${NC}"
+    echo -e "  ${B}│${NC}  ${DG}[${Y}4${DG}]${NC} ${P}☁️  Proxmox Manager Setup${NC}"
     echo -e "  ${B}│${NC}"
-    type_effect "  ${B}│${NC}  ${DG}[${R}0${DG}]${NC} ${DG}❌ EXIT SYSTEM${NC}" 0.01
+    echo -e "  ${B}│${NC}  ${DG}[${R}0${DG}]${NC} ${R}❌ EXIT SYSTEM${NC}"
     echo -e "  ${B}╰────────────────────────────────────────${NC}"
     echo ""
     
-    read -p "$(echo -e "  ${B}╰─➤${NC} root@skahost/vps: ")" op
+    read -p "$(echo -e "  ${B}╰─➤${NC} root@skahost: ")" op
     
     case $op in
     
@@ -210,7 +193,7 @@ EOF
         echo -e "\n  ${G}╭─[ 🖥️  KVM ACCELERATED VIRTUAL MACHINE ]${NC}"
         cyber_loading "Connecting to GitHub & Injecting KVM Payload..."
         echo -e "  ${G}╰──────────────────────────────────────────────────╯${NC}\n"
-        bash <(curl -s https://raw.githubusercontent.com/skahost/code/main/code/Vps/vm/vm.sh)
+        bash <(curl -s https://raw.githubusercontent.com/sdgamer8263-sketch/code/main/Vps/vm/vm.sh)
         ;;
 
     # ---------------------------------------------------------
@@ -220,8 +203,8 @@ EOF
         echo -e "\n  ${Y}╭─[ 🖥️  SOFTWARE EMULATION VM (NO KVM) ]${NC}"
         cyber_loading "Downloading Pure QEMU Core & Dependencies..."
         echo -e "  ${Y}╰──────────────────────────────────────────────────╯${NC}\n"
-        bash <(curl -s https://raw.githubusercontent.com/skahost/code/main/code/Vps/idx/idx.sh)
-        bash <(curl -s https://raw.githubusercontent.com/skahost/code/main/code/Vps/nonkvm/nonkvm.sh)
+        bash <(curl -s https://raw.githubusercontent.com/sdgamer8263-sketch/code/main/Vps/idx/idx.sh)
+        bash <(curl -s https://raw.githubusercontent.com/sdgamer8263-sketch/code/main/Vps/nonkvm/nonkvm.sh)
         ;;
 
     # ---------------------------------------------------------
@@ -231,16 +214,16 @@ EOF
         echo -e "\n  ${P}╭─[ ☁️  PROXMOX MANAGER SETUP ]${NC}"
         cyber_loading "Fetching Proxmox Container Configuration..."
         echo -e "  ${P}╰──────────────────────────────────────────────────╯${NC}\n"
-        bash <(curl -s https://raw.githubusercontent.com/skahost/code/main/code/Vps/Proxmox/Proxmox.sh)
+        bash <(curl -s https://raw.githubusercontent.com/sdgamer8263-sketch/code/main/Vps/Proxmox/Proxmox.sh)
         ;;  
 
     # ---------------------------------------------------------
     # (0) EXIT
     # ---------------------------------------------------------
     0|00|5|05)
-        echo -e ""
-        type_effect "  ${R}[SYS] Disconnecting from SKA HOST servers...${NC}" 0.03
-        type_effect "  ${DG}[SYS] Session Terminated. Goodbye!${NC}\n" 0.05
+        echo -e "\n  ${R}[SYS] Disconnecting from SKA HOST servers...${NC}"
+        sleep 0.5
+        echo -e "  ${DG}[SYS] Session Terminated. Goodbye!${NC}\n"
         exit 0
         ;;
     
@@ -254,4 +237,3 @@ EOF
     # 🟢 TERMINAL PROMPT (PAUSE / WAIT)
     pause
 done
-
