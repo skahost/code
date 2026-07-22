@@ -77,13 +77,22 @@ echo -e "    ${C_CYAN}[0]${NC} ${C_GRAY}Exit${NC}"
 echo -e "    ${C_YELLOW}─────────────────────────────────${NC}"
 echo ""
 
-echo -ne "    ${C_WHITE}➜ Select an option (0-2): ${NC}"
-echo -ne "\e[?25h" 
-read choice
-echo -ne "\e[?25l" 
+# Loop to handle invalid input properly
+while true; do
+    echo -ne "    ${C_WHITE}➜ root@ska:(0-2): ${NC}"
+    echo -ne "\e[?25h" 
+    read choice
+    echo -ne "\e[?25l" 
 
-if [[ "$choice" == "0" ]]; then clear; exit 0; fi
-if [[ "$choice" != "1" && "$choice" != "2" ]]; then echo -e "\n    ${C_RED}❌ Invalid option. Exiting...${NC}"; exit 1; fi
+    if [[ "$choice" == "0" ]]; then 
+        clear
+        exit 0
+    elif [[ "$choice" == "1" || "$choice" == "2" ]]; then 
+        break # Exit the loop if valid option is chosen
+    else
+        echo -e "    ${C_RED}❌ Invalid option. Please enter 0, 1, or 2.${NC}"
+    fi
+done
 
 # ==========================================
 # NEW PAGE FOR BOTH LOADINGS
