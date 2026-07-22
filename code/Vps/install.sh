@@ -193,7 +193,7 @@ EOF
         echo -e "\n  ${G}╭─[ 🖥️  KVM ACCELERATED VIRTUAL MACHINE ]${NC}"
         cyber_loading "Connecting to GitHub & Injecting KVM Payload..."
         echo -e "  ${G}╰──────────────────────────────────────────────────╯${NC}\n"
-        bash <(curl -s https://raw.githubusercontent.com/sdgamer8263-sketch/code/main/Vps/vm/vm.sh)
+        bash <(curl -s https://raw.githubusercontent.com/skahost/code/main/Vps/vm/vm.sh)
         ;;
 
     # ---------------------------------------------------------
@@ -203,8 +203,8 @@ EOF
         echo -e "\n  ${Y}╭─[ 🖥️  SOFTWARE EMULATION VM (NO KVM) ]${NC}"
         cyber_loading "Downloading Pure QEMU Core & Dependencies..."
         echo -e "  ${Y}╰──────────────────────────────────────────────────╯${NC}\n"
-        bash <(curl -s https://raw.githubusercontent.com/sdgamer8263-sketch/code/main/Vps/idx/idx.sh)
-        bash <(curl -s https://raw.githubusercontent.com/sdgamer8263-sketch/code/main/Vps/nonkvm/nonkvm.sh)
+        bash <(curl -s https://raw.githubusercontent.com/skahost/code/main/code/Vps/idx/idx.sh)
+        bash <(curl -s https://raw.githubusercontent.com/skahost/code/main/code/Vps/nonkvm/nonkvm.sh)
         ;;
 
     # ---------------------------------------------------------
@@ -214,7 +214,7 @@ EOF
         echo -e "\n  ${P}╭─[ ☁️  PROXMOX MANAGER SETUP ]${NC}"
         cyber_loading "Fetching Proxmox Container Configuration..."
         echo -e "  ${P}╰──────────────────────────────────────────────────╯${NC}\n"
-        bash <(curl -s https://raw.githubusercontent.com/sdgamer8263-sketch/code/main/Vps/Proxmox/Proxmox.sh)
+        bash <(curl -s https://raw.githubusercontent.com/skahost/code/main/code/Vps/Proxmox/Proxmox.sh)
         ;;  
 
     # ---------------------------------------------------------
