@@ -132,7 +132,7 @@ while true; do
     echo -e "  ${B}╰────────────────────────────────────────${NC}"
     echo ""
     
-    read -p "$(echo -e "  ${B}╰─➤${NC} root@skahost: ")" op
+    read -p "$(echo -e "  ${B}╰─➤${NC} root@skahost/vps: ")" op
     
     case $op in
     
