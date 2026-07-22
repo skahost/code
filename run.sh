@@ -7,17 +7,17 @@ set -euo pipefail
 # MODULES: NIX ENV + VM + PROXMOX
 # ==========================================
 
-# 🎨 Premium Colors (High-Intensity ANSI)
-R='\033[1;91m'      # Bright Red
-G='\033[1;92m'      # Bright Green
-Y='\033[1;93m'      # Bright Yellow
-B='\033[1;94m'      # Bright Blue
-P='\033[1;95m'      # Bright Magenta
-C='\033[1;96m'      # Bright Cyan
-W='\033[1;97m'      # Bright White
-DG='\033[1;90m'     # Dark Gray
-BLINK='\033[5m'     # Blinking
-NC='\033[0m'        # No Color
+# 🎨 Premium Colors (Using \e for 100% compatibility)
+R='\e[1;91m'      # Bright Red
+G='\e[1;92m'      # Bright Green
+Y='\e[1;93m'      # Bright Yellow
+B='\e[1;94m'      # Bright Blue
+P='\e[1;95m'      # Bright Magenta
+C='\e[1;96m'      # Bright Cyan
+W='\e[1;97m'      # Bright White
+DG='\e[1;90m'     # Dark Gray
+BLINK='\e[5m'     # Blinking
+NC='\e[0m'        # No Color
 
 # ==========================================
 # 🎬 UI COMPONENTS & ANIMATIONS
@@ -34,6 +34,17 @@ get_term_width() {
 pause() { 
     echo -e "\n  ${DG}╭─────────────────────────────────────────────────────────╮${NC}"
     read -p "$(echo -e "  ${DG}│${NC} ↩ Press ${W}Enter${NC} to continue... ")" _ 
+}
+
+# Smooth Typing Effect (FIXED: Handles colors correctly now)
+type_effect() {
+    local text="$1"
+    local speed="$2"
+    for (( i=0; i<${#text}; i++ )); do
+        echo -en "${text:$i:1}"
+        sleep "$speed"
+    done
+    echo ""
 }
 
 # Cyber Loading Bar Animation (Before running tasks)
@@ -54,8 +65,11 @@ cyber_loading() {
 boot_sequence() {
     clear
     echo -e "\n\n"
-    echo -e "  ${C}[SYS] Booting SKA HOST Dev Environment Matrix...${NC}"
-    sleep 0.3
+    
+    # Typing color fix: Wrapper applies color OUTSIDE the type function
+    echo -en "${C}"
+    type_effect "  [SYS] Booting SKA HOST Dev Environment Matrix..." 0.02
+    echo -en "${NC}"
     
     local chars="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
     echo -ne "  ${P}Authenticating: ${NC}"
@@ -111,7 +125,7 @@ boot_sequence
 while true; do
     show_dashboard
     
-    # FIX: Replaced character typing with smooth line-by-line cascading so colors don't break
+    # FIX: Smooth line-by-line cascading to prevent ANSI color breaking!
     echo -e "  ${B}╭─[ ⚡ SELECT DEPLOYMENT MODULE ]${NC}"
     sleep 0.05
     echo -e "  ${B}│${NC}  ${DG}[${Y}1${DG}]${NC} ${C}🔧 Environment Setup Tool (.idx/dev.nix)${NC}"
@@ -236,9 +250,13 @@ EOF
     # ---------------------------------------------------------
     0|00|5|05)
         echo -e ""
-        echo -e "  ${R}[SYS] Disconnecting from SKA HOST servers...${NC}"
-        sleep 0.5
-        echo -e "  ${DG}[SYS] Session Terminated. Goodbye!${NC}\n"
+        echo -en "${R}"
+        type_effect "  [SYS] Disconnecting from SKA HOST servers..." 0.03
+        echo -en "${NC}"
+        
+        echo -en "${DG}"
+        type_effect "  [SYS] Session Terminated. Goodbye!" 0.05
+        echo -en "${NC}\n"
         exit 0
         ;;
     
